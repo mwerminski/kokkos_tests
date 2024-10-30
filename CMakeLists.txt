@@ -11,4 +11,4 @@ set(Kokkos_ENABLE_OPENMP ON)
 
 add_subdirectory(third-party/kokkos)
 add_subdirectory(example_apps/reduce_test)
-add_subdirectory(example_apps/cuda_test)
+add_subdirectory(example_apps/diffusion_test)
