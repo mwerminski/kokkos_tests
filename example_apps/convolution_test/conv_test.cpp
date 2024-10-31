@@ -1,33 +1,31 @@
 //
 // Created by szylkret on 10/31/24.
 //
+#include <iostream>
+#include <Kokkos_Core.hpp>
+#include <Kokkos_DualView.hpp>
+#include <bitmap_image.hpp>
 
-//#define DIM_SIZE 10000
-#define RANK 2
+#define RANK 3
 
-//using HostView = Kokkos::View<double[DIM_SIZE][DIM_SIZE], Kokkos::HostSpace>;
+using DualView = Kokkos::DualView<double***, Kokkos::LayoutLeft, Kokkos::Cuda>;
 
-//static HostView read_bitmap(std::string path) {
-//  }
+static DualView read_bitmap(std::string path) {
+      bitmap_image image(path);
+      return DualView("img data");
+  }
 
 int main(int argc, char* argv[]) {
     Kokkos::initialize(argc, argv);
     {
 
-    // space creation for image
-    HostView host_data("host space for img");
-
-    // CUDA execution
     double current_time = 0.0; // [s]
     printf("CUDA execution\n");
     Kokkos::fence();
     Kokkos::Timer timer;
-    while (current_time < target_time) {
-        Kokkos::parallel_for("cuda_diff_func",
-                             CudaRangePolicy({0,0}, {DIM_SIZE,DIM_SIZE}), cuda_diff_func);
-        Kokkos::kokkos_swap(device_data_a, device_data_b);
-        current_time += time_step;
-    }
+
+    // something to do .....
+    read_bitmap("example_image.bmp");
 
     Kokkos::fence();
     printf("Time: %f [s]\n", timer.seconds());

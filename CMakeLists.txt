@@ -10,8 +10,11 @@ set(Kokkos_ENABLE_CUDA_LAMBDA ON)
 set(Kokkos_ENABLE_OPENMP ON)
 
 
-add_library(bitmap_image third-party/bitmap_image.hpp)
+add_library(bitmap_image third-party/bitmap/bitmap_image.hpp)
+target_include_directories(bitmap_image PUBLIC third-party/bitmap)
+set_target_properties(bitmap_image PROPERTIES LINKER_LANGUAGE CXX)
 
 add_subdirectory(third-party/kokkos)
+add_subdirectory(example_apps/convolution_test)
 add_subdirectory(example_apps/reduce_test)
 add_subdirectory(example_apps/diffusion_test)
